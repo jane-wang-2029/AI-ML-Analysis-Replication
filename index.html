@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI/ML Analysis Initiative | LBV / NIH TABA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI/ML Analysis Initiative for decision-ready insights across NIH-aligned portfolios and programs." />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --content-max: 1100px;
+      --content-pad: 24px;
+      --glowShift: 0px;
+      --scroll: 0;
+      --parallax: 0px;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.45);
+      --accent-glow: rgba(59, 130, 246, 0.2);
+      --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      color: #e2e8f0;
+      background: linear-gradient(160deg, #0f1729 0%, #1e293b 35%, #1e3a5f 100%);
+      background-size: 100% 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes bodyDrift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+      body {
+        background-size: 200% 200%;
+        background-position: 0% 50%;
+        animation: bodyDrift 18s ease-in-out infinite;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; }
+      body { animation: none; background-size: 100% 100%; background-position: 0 0; }
+      header::after { transition: none; animation: none; }
+      header { animation: none; }
+      .module-item:hover { transform: none; animation: none; }
+      .module-item:hover::after { animation: none; opacity: 0; }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes heroGlowPulse {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 1; }
+    }
+    /* HERO SECTION (header) */
+    header {
+      position: relative;
+      background-image: linear-gradient(135deg, #070d14 0%, #0b1220 22%, #0f2744 48%, #132a4a 52%, #1b2a52 78%, #0b1220 100%);
+      background-size: 220% 220%;
+      background-position: 0% 50%;
+      color: white;
+      padding: 3rem var(--content-pad) 3.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      header {
+        background-image:
+          linear-gradient(105deg, rgba(56,120,200,0.12) 0%, transparent 40%, rgba(88,28,135,0.06) 70%, transparent 100%),
+          linear-gradient(135deg, #070d14 0%, #0b1220 22%, #0f2744 48%, #132a4a 52%, #1b2a52 78%, #0b1220 100%);
+        background-size: 180% 120%, 220% 220%;
+        background-position: calc(20% + var(--scroll, 0) * 60%) 50%, 0% 50%;
+      }
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0, transparent 0.5px),
+        repeating-radial-gradient(circle at 80% 70%, rgba(255,255,255,0.025) 0, transparent 0.6px),
+        repeating-linear-gradient(0deg, transparent 0, transparent 1px, rgba(255,255,255,0.015) 1px, rgba(255,255,255,0.015) 2px),
+        repeating-linear-gradient(90deg, transparent 0, transparent 1px, rgba(255,255,255,0.015) 1px, rgba(255,255,255,0.015) 2px),
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        radial-gradient(ellipse 120% 100% at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 50%);
+      background-size: 120px 80px, 100px 120px, 4px 4px, 4px 4px, 32px 32px, 32px 32px, 100% 100%;
+      opacity: 0.5;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(0,0,0,0.9), rgba(0,0,0,0));
+    }
+    @media (prefers-reduced-motion: reduce) {
+      header::before { opacity: 0.4; }
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 25%),
+        radial-gradient(ellipse 95% 60% at 50% 0%, rgba(56,120,200,0.32) 0%, rgba(44,82,130,0.16) 35%, transparent 60%);
+      background-size: 100% 100%, 100% 100%;
+      background-position: 0 var(--parallax, 0px), 0 0;
+      pointer-events: none;
+      transform: translateY(var(--glowShift, 0px));
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      header::after {
+        animation: heroGlowPulse 4s ease-in-out infinite;
+      }
+    }
+    header > * { position: relative; z-index: 2; }
+    header h1,
+    header p.hero-tagline {
+      max-width: var(--content-max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    header h1 {
+      font-size: clamp(1.9rem, 2.4vw + 1rem, 2.9rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35), 0 0 24px rgba(56,120,200,0.15);
+    }
+    .hero-tagline {
+      font-size: clamp(1.1rem, 0.9vw + 1rem, 1.35rem);
+      line-height: 1.7;
+      max-width: 40em;
+      margin: 0.85rem auto 0;
+      letter-spacing: 0.02em;
+      color: #f8fafc;
+      font-weight: 500;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 1px rgba(0,0,0,0.2), 0 0 32px rgba(255,255,255,0.06);
+    }
+    .hero-meta {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      color: rgba(226,232,240,0.9);
+    }
+    .hero-meta span + span::before {
+      content: "•";
+      margin: 0 0.5rem;
+      opacity: 0.7;
+    }
+    .hero-actions {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.4);
+      color: #e5f0ff;
+      box-shadow: 0 10px 30px rgba(15,23,42,0.55);
+      transition: background 0.22s var(--ease-out-smooth), transform 0.22s var(--ease-out-smooth), box-shadow 0.22s var(--ease-out-smooth), border-color 0.18s ease;
+    }
+    .hero-button.primary {
+      background: linear-gradient(135deg, rgba(59,130,246,0.98), rgba(37,99,235,0.98));
+      border-color: rgba(191,219,254,0.9);
+      color: #0b1220;
+    }
+    .hero-button.secondary {
+      background: rgba(15,23,42,0.65);
+    }
+    .hero-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(15,23,42,0.7);
+      border-color: rgba(191,219,254,1);
+      background: radial-gradient(circle at 0 0, rgba(248,250,252,0.18), transparent 45%), rgba(15,23,42,0.8);
+    }
+    .hero-button.primary:hover {
+      background: linear-gradient(135deg, rgba(96,165,250,1), rgba(59,130,246,1));
+    }
+    .hero-button:focus-visible {
+      outline: 2px solid #bfdbfe;
+      outline-offset: 3px;
+      box-shadow: 0 0 0 2px rgba(15,23,42,0.9), 0 0 0 4px rgba(191,219,254,0.95);
+    }
+
+    main {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 32px var(--content-pad) 56px;
+      background: rgba(255,255,255,0.98);
+      color: #1a2b3d;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+    }
+    section {
+      margin-top: 28px;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(31,59,93,0.25) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    section:first-of-type::before { display: none; }
+    h2 {
+      color: #1f3b5d;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #1f3b5d;
+    }
+    h3 {
+      color: #2c5282;
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    ul {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    /* PROBLEM FRAMING LAYOUT */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .problem-tagline {
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+    .problem-highlight {
+      background: #e2efff;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      border-left: 4px solid #2563eb;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+
+    /* CORE CAPABILITIES (cards reuse module-item styling) */
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 2rem;
+    }
+    .module-item {
+      position: relative;
+      padding: 1.35rem 1.5rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.98) 100%) padding-box,
+        linear-gradient(135deg, var(--accent-soft, rgba(96,165,250,0.55)), rgba(167,139,250,0.45), rgba(34,211,238,0.35)) border-box;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(15, 23, 41, 0.08), 0 2px 4px rgba(0,0,0,0.04), 0 0 0 1px var(--accent-glow, rgba(96,165,250,0.08));
+      overflow: hidden;
+    }
+    .module-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.5) 36%, transparent 80%);
+      opacity: 0;
+      transform: translateX(-100%) skewX(-8deg);
+    }
+    @keyframes specular {
+      to { transform: translateX(200%) skewX(-8deg); }
+    }
+    @keyframes borderGlow {
+      0%, 100% {
+        box-shadow: 0 22px 48px rgba(15,23,42,0.18),
+          0 0 36px var(--accent-glow),
+          0 0 0 1px var(--accent-soft),
+          inset 0 1px 0 rgba(255,255,255,0.65);
+      }
+      50% {
+        box-shadow: 0 22px 48px rgba(15,23,42,0.18),
+          0 0 44px var(--accent-glow),
+          0 0 0 1px var(--accent-soft),
+          inset 0 1px 0 rgba(255,255,255,0.65);
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .module-item {
+        transition: transform 0.32s var(--ease-out-smooth, ease), box-shadow 0.32s var(--ease-out-smooth, ease), border-color 0.24s ease;
+      }
+      .module-item::after {
+        transition: opacity 0.18s ease;
+      }
+      .module-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 48px rgba(15,23,42,0.18), 0 0 36px var(--accent-glow, rgba(96,165,250,0.14)), 0 0 0 1px var(--accent-soft, rgba(96,165,250,0.4)), inset 0 1px 0 rgba(255,255,255,0.65);
+        animation: borderGlow 2.5s ease-in-out infinite;
+      }
+      .module-item:hover::after {
+        opacity: 1;
+        animation: specular 0.42s var(--ease-out-smooth, ease-out) forwards;
+      }
+      .module-item:focus-within {
+        box-shadow: 0 12px 28px rgba(15,23,41,0.14), 0 0 0 3px var(--accent, #3b82f6);
+      }
+    }
+    .module-item h3 {
+      margin-top: 0;
+      color: #1f3b5d;
+      font-size: 1.25rem;
+    }
+    .module-item .capability-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #64748b;
+      margin-bottom: 0.4rem;
+    }
+    .module-item .capability-description {
+      margin-top: 0.4rem;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    /* PROCESS SECTION */
+    .process-steps {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .process-step {
+      flex: 1;
+      min-width: 230px;
+    }
+    .process-step-order {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* OUTCOMES */
+    .outcomes-list {
+      list-style: disc;
+    }
+
+    /* PARTICIPATION / COLLABORATION */
+    .collaboration-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .collaboration-meta {
+      font-size: 0.95rem;
+      color: #475569;
+    }
+    .collaboration-box {
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      padding: 1.5rem;
+    }
+
+    /* TESTIMONIAL PLACEHOLDER */
+    .quote-block {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 1.75rem 1.5rem;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      font-style: italic;
+      color: #475569;
+    }
+
+    /* REVEAL-ON-SCROLL BASE STATE */
+    .module-item {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      html.js-reveal .module-item {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(3px);
+        transition: opacity 0.58s var(--ease-out-smooth),
+          transform 0.58s var(--ease-out-smooth),
+          filter 0.58s var(--ease-out-smooth);
+      }
+      html.js-reveal .module-item.reveal {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /* FOOTER */
+    footer.site-footer {
+      background: #0b1120;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 1.75rem 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(148,163,184,0.35);
+    }
+
+    @media (max-width: 900px) {
+      :root { --content-pad: 18px; }
+      main { padding: 24px var(--content-pad) 44px; }
+      .problem-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .collaboration-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      :root { --content-pad: 14px; }
+      main { padding: 20px var(--content-pad) 36px; border-radius: 12px 12px 0 0; }
+      header {
+        padding: 2.4rem var(--content-pad) 2.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <header id="hero">
+    <h1>AI/ML Analysis Initiative</h1>
+    <p class="hero-tagline">Structured, decision-ready analysis that connects complex datasets to clear, fundable strategies.</p>
+    <div class="hero-meta">
+      <span>Online / Hybrid / Advisory-based</span>
+      <span>Timeline: TBD</span>
+    </div>
+    <div class="hero-actions">
+      <a class="hero-button primary" href="#collaboration">Explore Collaboration</a>
+      <a class="hero-button secondary" href="#contact">Contact / Inquire</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- PROBLEM FRAMING SECTION -->
+    <section id="problem-framing">
+      <div class="problem-grid">
+        <div>
+          <div class="problem-tagline">Why AI/ML analysis</div>
+          <h2>From scattered data to aligned decisions</h2>
+          <p>
+            Funding portfolios, training programs, and innovation initiatives now generate more data than any single team can comfortably track. 
+            Without a coherent analysis layer, important signals about performance, risk, and opportunity stay buried in spreadsheets and ad hoc reports.
+          </p>
+          <p>
+            This initiative focuses on AI/ML analysis as a way to structure that complexity, so leaders see how individual projects, organizations, and 
+            outcomes relate to the strategies they are actually accountable for.
+          </p>
+          <p>
+            The emphasis is not on model novelty, but on traceable analysis flows that can be explained to program staff, partners, and reviewers.
+          </p>
+        </div>
+        <aside class="problem-highlight">
+          <strong>Analysis only matters if it changes decisions.</strong><br /><br />
+          The initiative is designed to keep a direct line between data sources, analytical choices, and the portfolio, policy, or program decisions that follow.
+        </aside>
+      </div>
+    </section>
+
+    <!-- CORE CAPABILITIES SECTION (CARD GRID) -->
+    <section id="core-capabilities">
+      <h2>Core Capabilities</h2>
+      <p>
+        The initiative is organized around a small set of capabilities that can be combined into different engagements, depending on question, timeline, and data maturity.
+      </p>
+      <div class="capabilities-grid modules-list">
+        <article class="module-item">
+          <div class="capability-label">Capability</div>
+          <h3>Data Structuring &amp; Normalization</h3>
+          <p class="capability-description">
+            Turn heterogeneous files, surveys, and operational records into consistent, well-labeled datasets that can be safely compared across programs, years, and cohorts.
+          </p>
+        </article>
+        <article class="module-item">
+          <div class="capability-label">Capability</div>
+          <h3>Pattern Detection &amp; Signal Extraction</h3>
+          <p class="capability-description">
+            Use ML techniques to surface recurring patterns, segments, and risk profiles, with a focus on explanations that program and technical teams can validate together.
+          </p>
+        </article>
+        <article class="module-item">
+          <div class="capability-label">Capability</div>
+          <h3>Strategic Modeling &amp; Forecasting</h3>
+          <p class="capability-description">
+            Build interpretable models that connect portfolio composition to likely outcomes, stress-test scenarios, and quantify how different choices shift risk and impact.
+          </p>
+        </article>
+        <article class="module-item">
+          <div class="capability-label">Capability</div>
+          <h3>Visualization &amp; Decision Tools</h3>
+          <p class="capability-description">
+            Translate model outputs into simple dashboards, briefs, or decision tools that can be used in reviews, panels, and working sessions without technical overhead.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section id="process">
+      <h2>How Engagements Work</h2>
+      <p>
+        Engagements are kept intentionally lightweight, with clear checkpoints where teams can adjust scope or pause once the right level of clarity is reached.
+      </p>
+      <div class="process-steps">
+        <article class="module-item process-step">
+          <div class="process-step-order">Step 1</div>
+          <h3>Data Intake &amp; Structuring</h3>
+          <p class="capability-description">
+            Map current data sources, define working questions, and build a usable analysis dataset. This includes documenting assumptions, gaps, and any constraints on use.
+          </p>
+        </article>
+        <article class="module-item process-step">
+          <div class="process-step-order">Step 2</div>
+          <h3>Model Development &amp; Validation</h3>
+          <p class="capability-description">
+            Develop candidate models and analysis views, then review them with stakeholders to confirm that patterns are real, useful, and aligned with program logic.
+          </p>
+        </article>
+        <article class="module-item process-step">
+          <div class="process-step-order">Step 3</div>
+          <h3>Insight Translation &amp; Deployment</h3>
+          <p class="capability-description">
+            Convert validated findings into decision materials, lightweight tools, or recurring reports that can be maintained and explained over time.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- OUTCOMES SECTION -->
+    <section id="outcomes">
+      <h2>Expected Outcomes</h2>
+      <p>
+        The goal is not a single report, but a reusable way to ask and answer questions about portfolios, initiatives, and pipelines.
+      </p>
+      <ul class="outcomes-list">
+        <li>Clearer decision frameworks that link data, analysis choices, and funding or program options.</li>
+        <li>Quantified views of risk, concentration, and coverage across portfolios or program areas.</li>
+        <li>Identified inefficiencies, overlaps, and gaps that are visible at both project and system levels.</li>
+        <li>Evidence that can be reused in internal briefings, external reporting, and future initiative design.</li>
+        <li>Practical patterns for when and how AI/ML adds value versus when simple summaries are enough.</li>
+      </ul>
+    </section>
+
+    <!-- PARTICIPATION / COLLABORATION SECTION -->
+    <section id="collaboration">
+      <h2>Participation &amp; Collaboration</h2>
+      <div class="collaboration-layout">
+        <div class="collaboration-meta">
+          <p>
+            The initiative is designed for teams responsible for NIH-aligned portfolios, training programs, or analysis missions who need a clear path from data to decisions.
+          </p>
+          <p>
+            Engagements are advisory-based and collaborative, not productized. Work is scoped around specific questions and constraints, with iterative working sessions rather than large one-time deliverables.
+          </p>
+          <p>
+            Organizations may participate through focused pilots, follow-on deep dives, or targeted support around upcoming reviews, strategy cycles, or program launches.
+          </p>
+        </div>
+        <aside class="collaboration-box">
+          <h3>Getting in Contact</h3>
+          <p id="contact">Contact: TBD</p>
+          <p>
+            A brief description of your context, timelines, and current data environment is usually enough to determine whether an engagement makes sense and what shape it should take.
+          </p>
+          <a href="#contact" class="hero-button primary" style="margin-top: 0.75rem; display: inline-flex;">Share Context &amp; Needs</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL / QUOTE SECTION (PLACEHOLDER) -->
+    <section id="quote">
+      <h2>Perspective</h2>
+      <div class="quote-block">
+        “Placeholder quote about the value of clear, decision-ready analysis.”
+      </div>
+    </section>
+  </main>
+
+  <!-- CLEAN FOOTER -->
+  <footer class="site-footer">
+    <p>AI/ML Analysis Initiative &middot; LBV / NIH TABA</p>
+  </footer>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cards = document.querySelectorAll('.module-item');
+      if (!cards.length) return;
+      document.documentElement.classList.add('js-reveal');
+      var cardArr = Array.prototype.slice.call(cards);
+      var maxDelay = 400;
+      function reveal(el, index) {
+        el.classList.add('reveal');
+        if (!reduced && index != null) {
+          el.style.transitionDelay = Math.min(index * 100, maxDelay) + 'ms';
+          el.addEventListener('transitionend', function () {
+            el.style.transitionDelay = '0ms';
+          }, { once: true });
+        }
+      }
+      if (!('IntersectionObserver' in window) || reduced) {
+        for (var i = 0; i < cards.length; i++) { reveal(cards[i], i); }
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var el = e.target;
+          var idx = cardArr.indexOf(el);
+          reveal(el, idx >= 0 ? idx : 0);
+          io.unobserve(el);
+        });
+      }, { rootMargin: '0px 0px -5% 0px', threshold: 0.15 });
+      cards.forEach(function (c) { io.observe(c); });
+    })();
+  </script>
+</body>
+</html>
+
